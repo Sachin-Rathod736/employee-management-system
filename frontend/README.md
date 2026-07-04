@@ -1,200 +1,181 @@
-# Employee Management System - Frontend
+# Employee Management System
 
-## Overview
+A full-stack web application for managing employee information in an organization. The system allows administrators to perform CRUD (Create, Read, Update, Delete) operations on employee records through a modern and responsive web interface.
 
-The Employee Management System frontend is a **React-based** application that provides a user interface for managing employee and department data. The app includes features for viewing, adding, editing, and deleting employees and departments. It also includes visualizations for employee metrics such as growth over time and distribution by age range, plus **passwordless sign-in with passkeys (WebAuthn)** and an Account → Passkeys page to manage them.
+The application is built using Spring Boot for the backend and React.js for the frontend, with MySQL used as the database for storing employee information.
 
-## File Structure
+---
 
-Here's a high-level overview of the file structure:
+## Features
 
-```mermaid
-mindmap
-  root((employee-management-app))
-    docker-compose.yaml
-    backend
-      (Backend code)
-    frontend
-      build
-      public
-        index.html
-        favicon.ico
-        manifest.json
-        robots.txt
-        icon-192x192.webp
-        icon-512x512.webp
-      src
-        components
-          Dashboard.js
-          EmployeeList.js
-          EmployeeForm.js
-          DepartmentList.js
-          DepartmentForm.js
-          Navbar.js
-          Login.js
-          Register.js
-          Passkeys.js
-          PasskeyPromptDialog.js
-        services
-          employeeService.js
-          departmentService.js
-          authService.js
-          passkeyService.js
-        utils
-          webauthn.js
-        App.js
-        index.js
-        index.css
-        reportWebVitals.js
-        App.css
-        theme.js
-      Dockerfile
-      postcss.config.js
-      tailwind.config.js
-      package.json
+- Employee Registration
+- View Employee Details
+- Update Employee Information
+- Delete Employee Records
+- Search Employees
+- Responsive User Interface
+- RESTful API Integration
+- MySQL Database Connectivity
+- Form Validation
+- Error Handling
+
+---
+
+## Technologies Used
+
+### Frontend
+- React.js
+- JavaScript (ES6)
+- HTML5
+- CSS3
+- Bootstrap
+- Axios
+
+### Backend
+- Java
+- Spring Boot
+- Spring MVC
+- Spring Data JPA
+- Hibernate
+- Maven
+
+### Database
+- MySQL
+
+### Tools
+- Git
+- GitHub
+- Postman
+- IntelliJ IDEA / VS Code
+
+---
+
+## Project Structure
+
+```
+Employee-Management-System/
+│
+├── employee-management-backend/
+│   ├── src/
+│   ├── pom.xml
+│
+├── employee-management-frontend/
+│   ├── src/
+│   ├── package.json
+│
+└── README.md
 ```
 
-## Dependencies
+---
 
-- **React**: Frontend library for building user interfaces.
-- **React Router DOM**: For handling routing and navigation.
-- **Material-UI**: For UI components and styling.
-- **Chart.js**: For rendering charts and graphs.
-- **Axios**: For making HTTP requests (if used in `employeeService` and `departmentService`).
-- **Tailwind CSS**: For utility-first CSS framework (if used in `App.css`).
-
-## Setup Instructions
+## Installation Steps
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/hoangsonww/Employee-Management-Fullstack-App.git
-cd Employee-Management/frontend
+git clone https://github.com/your-username/employee-management-system.git
 ```
 
-### 2. Install Dependencies
+### 2. Backend Setup
 
-Ensure you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed. Run the following command to install the required dependencies:
+```bash
+cd employee-management-backend
+```
+
+Configure MySQL database in
+
+```
+src/main/resources/application.properties
+```
+
+Example:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/employee_db
+spring.datasource.username=root
+spring.datasource.password=your_password
+
+spring.jpa.hibernate.ddl-auto=update
+```
+
+Run the backend
+
+```bash
+mvn spring-boot:run
+```
+
+Backend runs on
+
+```
+http://localhost:8080
+```
+
+---
+
+### 3. Frontend Setup
+
+```bash
+cd employee-management-frontend
+```
+
+Install dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Set Up Environment Variables
-
-Create a `.env` file in the root of your project if it doesn't already exist. Add any required environment variables. For example:
-
-```env
-REACT_APP_API_URL=http://localhost:8080/api
-# Optional: override the API base URL used by the passkey service (defaults to the deployed backend)
-REACT_APP_API_BASE_URL=http://localhost:8080
-```
-
-Make sure to replace the `REACT_APP_API_URL` with your backend server URL.
-
-> **Passkeys note:** WebAuthn requires a secure context — it works on `localhost` and over HTTPS, but not over plain HTTP on a remote host. The backend's `WEBAUTHN_RP_ID` must match the domain serving this frontend.
-
-### 4. Start the Development Server
-
-Run the following command to start the development server:
+Start the React application
 
 ```bash
 npm start
 ```
 
-This will start the React development server and open the application in your default web browser. The app will be available at [http://localhost:3000](http://localhost:3000).
+Frontend runs on
 
-### 5. Build for Production
-
-To create a production build of your application, run:
-
-```bash
-npm run build
+```
+http://localhost:3000
 ```
 
-The build files will be generated in the `build` directory. You can deploy these files to your production server.
+---
 
-### 6. Running Tests
+## API Endpoints
 
-To run tests, use:
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | /api/employees | Get all employees |
+| GET | /api/employees/{id} | Get employee by ID |
+| POST | /api/employees | Add employee |
+| PUT | /api/employees/{id} | Update employee |
+| DELETE | /api/employees/{id} | Delete employee |
 
-```bash
-npm test
-```
+---
 
-This will start the test runner and execute your test cases.
+## Future Enhancements
 
-Tests run on **Jest** + **React Testing Library** and live in `__tests__/`:
+- Employee Login
+- Admin Dashboard
+- JWT Authentication
+- Role-Based Access Control
+- Attendance Management
+- Payroll Management
+- Email Notifications
+- Export Employee Data (PDF/Excel)
+- Employee Profile Picture Upload
 
-- **Behavioral suites** exercise interactions on the core screens (Dashboard, Employee/Department lists, Login, Register, Profile, passkeys).
-- **Snapshot suites** (`__tests__/snapshots/`) lock in the rendered markup of **every screen** — Landing, the auth pages, the dashboard, the employee/department list & form pages, Profile, Passkeys, Not Found, Quick Actions, Navbar, and Footer — asserting each with `toMatchSnapshot()`.
+---
 
-The snapshots are made deterministic (3D hero + charts stubbed, `autoFocus` neutralized, `Date` frozen where rendered, services mocked) so they pass identically on local machines and CI regardless of timezone or when they run.
+## Screenshots
 
-```bash
-# Run only the snapshot suites
-npm test -- __tests__/snapshots
+Add screenshots of your application here.
 
-# Update snapshots after an intentional UI change, then commit the .snap files
-npm test -- -u
-```
+---
 
-## Detailed Component Instructions
+## Author
 
-### `Dashboard.js`
+Sachin Dnyaneshwar Rathod
 
-Displays various metrics related to employees, such as total employee count, average age, employee growth over time, and distribution by age range. It uses `react-chartjs-2` to render bar charts.
-
-### `EmployeeList.js`
-
-Shows a list of employees with options to search, paginate, and delete entries. Includes a link to add a new employee and edit existing employees.
-
-### `EmployeeForm.js`
-
-Provides a form for adding or editing employee details. Fetches departments to populate the department dropdown. Uses `useParams` to determine if it's in edit mode or add mode.
-
-### `DepartmentList.js`
-
-Displays a list of departments with options to search, paginate, and delete entries. Includes a link to add a new department and edit existing departments.
-
-### `DepartmentForm.js`
-
-Provides a form for adding or editing department details.
-
-### `Navbar.js`
-
-The navigation bar component that includes links to various pages such as Dashboard, Employees, and Departments. Highlights the currently active page. When signed in, the logout button is replaced by an **Account** dropdown with **Passkeys** and a destructive (red) **Log Out** option (mirrored in the mobile drawer).
-
-### `Passkeys.js`
-
-The **Account → Passkeys** management page (`/passkeys`, protected). Lists the user's passkeys with device hints and badges, and supports adding, renaming, and deleting passkeys. Warns if the browser does not support WebAuthn.
-
-### `PasskeyPromptDialog.js`
-
-A styled in-app modal (no native `alert`/`prompt`) shown after sign-up that invites the user to create a passkey, driving the full registration ceremony with progress, success, and error states.
-
-### `Login.js` / `Register.js`
-
-`Login.js` adds a **"Sign in with a passkey"** button (username-less / discoverable login). `Register.js` auto-signs-in after registration and then shows the passkey prompt so users can set one up immediately.
-
-### `services/passkeyService.js` & `utils/webauthn.js`
-
-`passkeyService.js` wraps the `/api/passkeys/**` API and exposes high-level `registerNewPasskey` / `loginWithPasskey` helpers. `utils/webauthn.js` handles base64url ⇆ ArrayBuffer conversion, the `navigator.credentials` ceremony drivers, capability checks, and friendly error messages.
-
-## Troubleshooting
-
-- **Error: Cannot read properties of undefined (reading 'id')**: Ensure that the `employee` object in `EmployeeForm` is correctly initialized and that the `id` parameter is correctly passed. Check the `getEmployeeById` and `updateEmployee` functions for proper handling of data.
-
-- **Chart Issues**: Ensure `Chart.js` and `react-chartjs-2` are correctly installed and configured. Verify that the chart data passed to components is in the correct format.
-
-## Contributing
-
-If you'd like to contribute to the project, please fork the repository and submit a pull request with your changes. Ensure that you follow the project's coding standards and include relevant tests for new features.
+---
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For any questions or issues, please contact [hoangson091104@gmail.com](mailto:hoangson091104@gmail.com).
+This project is intended for educational and learning purposes.
